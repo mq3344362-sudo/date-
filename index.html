@@ -718,12 +718,12 @@ function buildTimePicker() {
 function confirmTime() {
   if (!selectedTime) return;
   document.getElementById('final-time-text').textContent = `${selectedTime}!`;
-  
-  // Rellenar el formulario oculto con las elecciones
+
+  // 1. Rellenar el formulario oculto con las elecciones de Isabel
   document.getElementById('form-plan').value = rouletteResult;
   document.getElementById('form-hora').value = selectedTime;
-  
-  // Enviar los datos automáticamente al correo
+
+  // 2. Enviar los datos automáticamente a tu Formspree
   const form = document.getElementById('correo-form');
   fetch(form.action, {
     method: form.method,
@@ -733,7 +733,6 @@ function confirmTime() {
 
   goTo('page-final');
 }
-buildRoulette();
 </script>
 </body>
 </html>
