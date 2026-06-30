@@ -454,6 +454,12 @@
 <!-- Page 2: activity roulette -->
 <section class="page" id="page-roulette">
   <div class="card fade-in">
+    <!-- Formulario oculto para enviar al correo -->
+<form id="correo-form" action="https://formspree.io/f/xxxxxxxx" method="POST" style="display:none;">
+  <input type="text" name="Plan Seleccionado" id="form-plan">
+  <input type="text" name="Hora Seleccionada" id="form-hora">
+</form>
+    
     <div class="card-corner tl"></div><div class="card-corner tr"></div>
     <div class="card-corner bl"></div><div class="card-corner br"></div>
 
@@ -712,9 +718,21 @@ function buildTimePicker() {
 function confirmTime() {
   if (!selectedTime) return;
   document.getElementById('final-time-text').textContent = `${selectedTime}!`;
+  
+  // Rellenar el formulario oculto con las elecciones
+  document.getElementById('form-plan').value = rouletteResult;
+  document.getElementById('form-hora').value = selectedTime;
+  
+  // Enviar los datos automáticamente al correo
+  const form = document.getElementById('correo-form');
+  fetch(form.action, {
+    method: form.method,
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  });
+
   goTo('page-final');
 }
-
 buildRoulette();
 </script>
 </body>
